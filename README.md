@@ -1,2 +1,2 @@
 # CodeRank
-Timepass project sample for self practice
+Trying to create something useful here. 
