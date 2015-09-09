@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{0CB8B37E-4129-4697-97C3-4E73CBA562A0}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CodeRank.Api.Service</RootNamespace>
+    <AssemblyName>CodeRank.Api.Service</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="mock-assembly">
+      <HintPath>..\ExternalLib\mock-assembly.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.engine">
+      <HintPath>..\ExternalLib\nunit.engine.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.engine.api">
+      <HintPath>..\ExternalLib\nunit.engine.api.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework">
+      <HintPath>..\ExternalLib\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Roslyn.Compilers">
+      <HintPath>..\ExternalLib\Roslyn.Compilers.dll</HintPath>
+    </Reference>
+    <Reference Include="Roslyn.Compilers.CSharp">
+      <HintPath>..\ExternalLib\Roslyn.Compilers.CSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CompilerService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CodeRank.Api.Entities\CodeRank.Api.Entities.csproj">
+      <Project>{75a0416b-63b8-4cc2-9ba3-3f02bba7ea18}</Project>
+      <Name>CodeRank.Api.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CodeRank.Api.Service.Contracts\CodeRank.Api.Service.Contracts.csproj">
+      <Project>{526375a3-c9e6-4279-9cd7-54bed6e839c8}</Project>
+      <Name>CodeRank.Api.Service.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CodeRank.Bootstrapper\CodeRank.CompilerEngine.csproj">
+      <Project>{bd464c7f-9d6a-4def-81d9-443cfb5a5d14}</Project>
+      <Name>CodeRank.CompilerEngine</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CodeRank.Compiler.Base\CodeRank.Compiler.Base.csproj">
+      <Project>{223f8eeb-664a-46de-b355-eb69bbd88c67}</Project>
+      <Name>CodeRank.Compiler.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CodeRank.CSharpProblems.Ruleset\CodeRank.CSharpProblems.Ruleset.csproj">
+      <Project>{bfea4199-e13d-43aa-bd39-1798972234e4}</Project>
+      <Name>CodeRank.CSharpProblems.Ruleset</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CodeRank.Framework\CodeRank.Framework.csproj">
+      <Project>{1f3cf759-36ff-43b4-88f1-ddaf7f0fcf9a}</Project>
+      <Name>CodeRank.Framework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CodeRank.Nunit.TestRunner\CodeRank.Nunit.TestRunner.csproj">
+      <Project>{57133a86-30b3-4a98-a283-4bdfc8132e12}</Project>
+      <Name>CodeRank.Nunit.TestRunner</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CodeRank\CodeRank.Compiler.Csharp.csproj">
+      <Project>{92d34d89-8a12-4fdb-8153-286346d1d8eb}</Project>
+      <Name>CodeRank.Compiler.Csharp</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

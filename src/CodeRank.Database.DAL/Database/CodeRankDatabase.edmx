@@ -1,0 +1,540 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="CodeRankModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="CodeRankModelStoreContainer">
+          <EntitySet Name="Candidate" EntityType="CodeRankModel.Store.Candidate" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="Exam" EntityType="CodeRankModel.Store.Exam" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="ExamResult" EntityType="CodeRankModel.Store.ExamResult" store:Type="Tables" store:Schema="dbo" store:Name="ExamResult" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator">
+            <DefiningQuery>SELECT 
+      [ExamResult].[ExamID] AS [ExamID], 
+      [ExamResult].[PaperSetQuestionID] AS [PaperSetQuestionID], 
+      [ExamResult].[Score] AS [Score]
+      FROM [dbo].[ExamResult] AS [ExamResult]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="PaperSet" EntityType="CodeRankModel.Store.PaperSet" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="PaperSetQuestion" EntityType="CodeRankModel.Store.PaperSetQuestion" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="Questions" EntityType="CodeRankModel.Store.Questions" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <AssociationSet Name="FK_Exam_Candidate" Association="CodeRankModel.Store.FK_Exam_Candidate">
+            <End Role="Candidate" EntitySet="Candidate" />
+            <End Role="Exam" EntitySet="Exam" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Exam_PaperSet" Association="CodeRankModel.Store.FK_Exam_PaperSet">
+            <End Role="PaperSet" EntitySet="PaperSet" />
+            <End Role="Exam" EntitySet="Exam" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ExamResult_Exam" Association="CodeRankModel.Store.FK_ExamResult_Exam">
+            <End Role="Exam" EntitySet="Exam" />
+            <End Role="ExamResult" EntitySet="ExamResult" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ExamResult_PaperSetQuestion" Association="CodeRankModel.Store.FK_ExamResult_PaperSetQuestion">
+            <End Role="PaperSetQuestion" EntitySet="PaperSetQuestion" />
+            <End Role="ExamResult" EntitySet="ExamResult" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PaperSetQuestion_PaperSet" Association="CodeRankModel.Store.FK_PaperSetQuestion_PaperSet">
+            <End Role="PaperSet" EntitySet="PaperSet" />
+            <End Role="PaperSetQuestion" EntitySet="PaperSetQuestion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PaperSetQuestion_Questions" Association="CodeRankModel.Store.FK_PaperSetQuestion_Questions">
+            <End Role="Questions" EntitySet="Questions" />
+            <End Role="PaperSetQuestion" EntitySet="PaperSetQuestion" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Candidate">
+          <Key>
+            <PropertyRef Name="CandidateID" />
+          </Key>
+          <Property Name="CandidateID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="LastName" Type="varchar" MaxLength="100" />
+          <Property Name="emailID" Type="varchar" MaxLength="150" />
+          <Property Name="password" Type="varchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Exam">
+          <Key>
+            <PropertyRef Name="ExamID" />
+          </Key>
+          <Property Name="ExamID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="CandidateID" Type="int" Nullable="false" />
+          <Property Name="PaperSetID" Type="int" Nullable="false" />
+          <Property Name="ExamDate" Type="date" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'CodeRank.dbo.ExamResult' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="ExamResult">
+          <Key>
+            <PropertyRef Name="ExamID" />
+            <PropertyRef Name="PaperSetQuestionID" />
+            <PropertyRef Name="Score" />
+          </Key>
+          <Property Name="ExamID" Type="int" Nullable="false" />
+          <Property Name="PaperSetQuestionID" Type="int" Nullable="false" />
+          <Property Name="Score" Type="smallint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PaperSet">
+          <Key>
+            <PropertyRef Name="PaperSetID" />
+          </Key>
+          <Property Name="PaperSetID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="PaperSetQuestion">
+          <Key>
+            <PropertyRef Name="PaperSetQuestionID" />
+          </Key>
+          <Property Name="PaperSetQuestionID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="PaperSetID" Type="int" Nullable="false" />
+          <Property Name="QuestionID" Type="int" Nullable="false" />
+          <Property Name="MaximumMarks" Type="smallint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Questions">
+          <Key>
+            <PropertyRef Name="QuestionID" />
+          </Key>
+          <Property Name="QuestionID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="varchar" Nullable="false" MaxLength="200" />
+          <Property Name="Description" Type="varchar(max)" />
+          <Property Name="ComplexityLevel" Type="smallint" Nullable="false" />
+          <Property Name="TestAssemblyName" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <Association Name="FK_Exam_Candidate">
+          <End Role="Candidate" Type="CodeRankModel.Store.Candidate" Multiplicity="1" />
+          <End Role="Exam" Type="CodeRankModel.Store.Exam" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Candidate">
+              <PropertyRef Name="CandidateID" />
+            </Principal>
+            <Dependent Role="Exam">
+              <PropertyRef Name="CandidateID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Exam_PaperSet">
+          <End Role="PaperSet" Type="CodeRankModel.Store.PaperSet" Multiplicity="1" />
+          <End Role="Exam" Type="CodeRankModel.Store.Exam" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="PaperSet">
+              <PropertyRef Name="PaperSetID" />
+            </Principal>
+            <Dependent Role="Exam">
+              <PropertyRef Name="ExamID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ExamResult_Exam">
+          <End Role="Exam" Type="CodeRankModel.Store.Exam" Multiplicity="1" />
+          <End Role="ExamResult" Type="CodeRankModel.Store.ExamResult" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Exam">
+              <PropertyRef Name="ExamID" />
+            </Principal>
+            <Dependent Role="ExamResult">
+              <PropertyRef Name="ExamID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ExamResult_PaperSetQuestion">
+          <End Role="PaperSetQuestion" Type="CodeRankModel.Store.PaperSetQuestion" Multiplicity="1" />
+          <End Role="ExamResult" Type="CodeRankModel.Store.ExamResult" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PaperSetQuestion">
+              <PropertyRef Name="PaperSetQuestionID" />
+            </Principal>
+            <Dependent Role="ExamResult">
+              <PropertyRef Name="PaperSetQuestionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PaperSetQuestion_PaperSet">
+          <End Role="PaperSet" Type="CodeRankModel.Store.PaperSet" Multiplicity="1" />
+          <End Role="PaperSetQuestion" Type="CodeRankModel.Store.PaperSetQuestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PaperSet">
+              <PropertyRef Name="PaperSetID" />
+            </Principal>
+            <Dependent Role="PaperSetQuestion">
+              <PropertyRef Name="PaperSetID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PaperSetQuestion_Questions">
+          <End Role="Questions" Type="CodeRankModel.Store.Questions" Multiplicity="1" />
+          <End Role="PaperSetQuestion" Type="CodeRankModel.Store.PaperSetQuestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Questions">
+              <PropertyRef Name="QuestionID" />
+            </Principal>
+            <Dependent Role="PaperSetQuestion">
+              <PropertyRef Name="QuestionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="GetCandidate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CandidateID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetCandidateExamResult" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CandidateID" Type="int" Mode="In" />
+          <Parameter Name="ExamID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetCandidateExams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CandidateID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetPaperSetQuestions" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="PaperSetID" Type="int" Mode="In" />
+        </Function>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CodeRankModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+        <EntityContainer Name="CodeRankEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="Candidates" EntityType="CodeRankModel.Candidate" />
+          <EntitySet Name="Exams" EntityType="CodeRankModel.Exam" />
+          <EntitySet Name="ExamResults" EntityType="CodeRankModel.ExamResult" />
+          <EntitySet Name="PaperSets" EntityType="CodeRankModel.PaperSet" />
+          <EntitySet Name="PaperSetQuestions" EntityType="CodeRankModel.PaperSetQuestion" />
+          <EntitySet Name="Questions" EntityType="CodeRankModel.Question" />
+          <AssociationSet Name="FK_Exam_Candidate" Association="CodeRankModel.FK_Exam_Candidate">
+            <End Role="Candidate" EntitySet="Candidates" />
+            <End Role="Exam" EntitySet="Exams" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Exam_PaperSet" Association="CodeRankModel.FK_Exam_PaperSet">
+            <End Role="PaperSet" EntitySet="PaperSets" />
+            <End Role="Exam" EntitySet="Exams" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ExamResult_Exam" Association="CodeRankModel.FK_ExamResult_Exam">
+            <End Role="Exam" EntitySet="Exams" />
+            <End Role="ExamResult" EntitySet="ExamResults" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ExamResult_PaperSetQuestion" Association="CodeRankModel.FK_ExamResult_PaperSetQuestion">
+            <End Role="PaperSetQuestion" EntitySet="PaperSetQuestions" />
+            <End Role="ExamResult" EntitySet="ExamResults" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PaperSetQuestion_PaperSet" Association="CodeRankModel.FK_PaperSetQuestion_PaperSet">
+            <End Role="PaperSet" EntitySet="PaperSets" />
+            <End Role="PaperSetQuestion" EntitySet="PaperSetQuestions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PaperSetQuestion_Questions" Association="CodeRankModel.FK_PaperSetQuestion_Questions">
+            <End Role="Questions" EntitySet="Questions" />
+            <End Role="PaperSetQuestion" EntitySet="PaperSetQuestions" />
+          </AssociationSet>
+          <FunctionImport Name="GetPaperSetQuestions" ReturnType="Collection(CodeRankModel.GetPaperSetQuestions_Result)">
+          <Parameter Name="PaperSetID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetCandidate" ReturnType="Collection(CodeRankModel.GetCandidate_Result)">
+            <Parameter Name="CandidateID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetCandidateExamResult" ReturnType="Collection(CodeRankModel.GetCandidateExamResult_Result)">
+            <Parameter Name="CandidateID" Mode="In" Type="Int32" />
+            <Parameter Name="ExamID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetCandidateExams" ReturnType="Collection(CodeRankModel.GetCandidateExams_Result)">
+            <Parameter Name="CandidateID" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <EntityType Name="Candidate">
+          <Key>
+            <PropertyRef Name="CandidateID" />
+          </Key>
+          <Property Name="CandidateID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="LastName" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="emailID" Type="String" MaxLength="150" Unicode="false" FixedLength="false" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Exams" Relationship="CodeRankModel.FK_Exam_Candidate" FromRole="Candidate" ToRole="Exam" />
+        </EntityType>
+        <EntityType Name="Exam">
+          <Key>
+            <PropertyRef Name="ExamID" />
+          </Key>
+          <Property Name="ExamID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="CandidateID" Type="Int32" Nullable="false" />
+          <Property Name="PaperSetID" Type="Int32" Nullable="false" />
+          <Property Name="ExamDate" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Candidate" Relationship="CodeRankModel.FK_Exam_Candidate" FromRole="Exam" ToRole="Candidate" />
+          <NavigationProperty Name="PaperSet" Relationship="CodeRankModel.FK_Exam_PaperSet" FromRole="Exam" ToRole="PaperSet" />
+          <NavigationProperty Name="ExamResults" Relationship="CodeRankModel.FK_ExamResult_Exam" FromRole="Exam" ToRole="ExamResult" />
+        </EntityType>
+        <EntityType Name="ExamResult">
+          <Key>
+            <PropertyRef Name="ExamID" />
+            <PropertyRef Name="PaperSetQuestionID" />
+            <PropertyRef Name="Score" />
+          </Key>
+          <Property Name="ExamID" Type="Int32" Nullable="false" />
+          <Property Name="PaperSetQuestionID" Type="Int32" Nullable="false" />
+          <Property Name="Score" Type="Int16" Nullable="false" />
+          <NavigationProperty Name="Exam" Relationship="CodeRankModel.FK_ExamResult_Exam" FromRole="ExamResult" ToRole="Exam" />
+          <NavigationProperty Name="PaperSetQuestion" Relationship="CodeRankModel.FK_ExamResult_PaperSetQuestion" FromRole="ExamResult" ToRole="PaperSetQuestion" />
+        </EntityType>
+        <EntityType Name="PaperSet">
+          <Key>
+            <PropertyRef Name="PaperSetID" />
+          </Key>
+          <Property Name="PaperSetID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="500" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Exam" Relationship="CodeRankModel.FK_Exam_PaperSet" FromRole="PaperSet" ToRole="Exam" />
+          <NavigationProperty Name="PaperSetQuestions" Relationship="CodeRankModel.FK_PaperSetQuestion_PaperSet" FromRole="PaperSet" ToRole="PaperSetQuestion" />
+        </EntityType>
+        <EntityType Name="PaperSetQuestion">
+          <Key>
+            <PropertyRef Name="PaperSetQuestionID" />
+          </Key>
+          <Property Name="PaperSetQuestionID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="PaperSetID" Type="Int32" Nullable="false" />
+          <Property Name="QuestionID" Type="Int32" Nullable="false" />
+          <Property Name="MaximumMarks" Type="Int16" Nullable="false" />
+          <NavigationProperty Name="ExamResults" Relationship="CodeRankModel.FK_ExamResult_PaperSetQuestion" FromRole="PaperSetQuestion" ToRole="ExamResult" />
+          <NavigationProperty Name="PaperSet" Relationship="CodeRankModel.FK_PaperSetQuestion_PaperSet" FromRole="PaperSetQuestion" ToRole="PaperSet" />
+          <NavigationProperty Name="Question" Relationship="CodeRankModel.FK_PaperSetQuestion_Questions" FromRole="PaperSetQuestion" ToRole="Questions" />
+        </EntityType>
+        <EntityType Name="Question">
+          <Key>
+            <PropertyRef Name="QuestionID" />
+          </Key>
+          <Property Name="QuestionID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="200" Unicode="false" FixedLength="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="ComplexityLevel" Type="Int16" Nullable="false" />
+          <Property Name="TestAssemblyName" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="PaperSetQuestions" Relationship="CodeRankModel.FK_PaperSetQuestion_Questions" FromRole="Questions" ToRole="PaperSetQuestion" />
+        </EntityType>
+        <Association Name="FK_Exam_Candidate">
+          <End Role="Candidate" Type="CodeRankModel.Candidate" Multiplicity="1" />
+          <End Role="Exam" Type="CodeRankModel.Exam" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Candidate">
+              <PropertyRef Name="CandidateID" />
+            </Principal>
+            <Dependent Role="Exam">
+              <PropertyRef Name="CandidateID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Exam_PaperSet">
+          <End Role="PaperSet" Type="CodeRankModel.PaperSet" Multiplicity="1" />
+          <End Role="Exam" Type="CodeRankModel.Exam" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="PaperSet">
+              <PropertyRef Name="PaperSetID" />
+            </Principal>
+            <Dependent Role="Exam">
+              <PropertyRef Name="ExamID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ExamResult_Exam">
+          <End Role="Exam" Type="CodeRankModel.Exam" Multiplicity="1" />
+          <End Role="ExamResult" Type="CodeRankModel.ExamResult" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Exam">
+              <PropertyRef Name="ExamID" />
+            </Principal>
+            <Dependent Role="ExamResult">
+              <PropertyRef Name="ExamID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ExamResult_PaperSetQuestion">
+          <End Role="PaperSetQuestion" Type="CodeRankModel.PaperSetQuestion" Multiplicity="1" />
+          <End Role="ExamResult" Type="CodeRankModel.ExamResult" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PaperSetQuestion">
+              <PropertyRef Name="PaperSetQuestionID" />
+            </Principal>
+            <Dependent Role="ExamResult">
+              <PropertyRef Name="PaperSetQuestionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PaperSetQuestion_PaperSet">
+          <End Role="PaperSet" Type="CodeRankModel.PaperSet" Multiplicity="1" />
+          <End Role="PaperSetQuestion" Type="CodeRankModel.PaperSetQuestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PaperSet">
+              <PropertyRef Name="PaperSetID" />
+            </Principal>
+            <Dependent Role="PaperSetQuestion">
+              <PropertyRef Name="PaperSetID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PaperSetQuestion_Questions">
+          <End Role="Questions" Type="CodeRankModel.Question" Multiplicity="1" />
+          <End Role="PaperSetQuestion" Type="CodeRankModel.PaperSetQuestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Questions">
+              <PropertyRef Name="QuestionID" />
+            </Principal>
+            <Dependent Role="PaperSetQuestion">
+              <PropertyRef Name="QuestionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="GetPaperSetQuestions_Result">
+          <Property Type="Int32" Name="QuestionID" Nullable="false" />
+          <Property Type="String" Name="Title" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="Description" Nullable="true" />
+          <Property Type="Int16" Name="ComplexityLevel" Nullable="false" />
+          <Property Type="String" Name="TestAssemblyName" Nullable="true" MaxLength="200" />
+        </ComplexType>
+        <ComplexType Name="GetCandidate_Result">
+          <Property Type="Int32" Name="CandidateID" Nullable="false" />
+          <Property Type="String" Name="FirstName" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="LastName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="emailID" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="password" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="GetCandidateExamResult_Result">
+          <Property Type="Int32" Name="PaperSetID" Nullable="true" />
+          <Property Type="Int32" Name="QuestionID" Nullable="true" />
+          <Property Type="String" Name="Title" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="Description" Nullable="true" />
+          <Property Type="Int16" Name="ComplexityLevel" Nullable="true" />
+          <Property Type="String" Name="TestAssemblyName" Nullable="true" MaxLength="200" />
+          <Property Type="Int16" Name="MaximumMarks" Nullable="true" />
+          <Property Type="Int16" Name="Score" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="GetCandidateExams_Result">
+          <Property Type="Int32" Name="ExamID" Nullable="false" />
+          <Property Type="Int32" Name="CandidateID" Nullable="false" />
+          <Property Type="Int32" Name="PaperSetID" Nullable="false" />
+          <Property Type="DateTime" Name="ExamDate" Nullable="false" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CodeRankModelStoreContainer" CdmEntityContainer="CodeRankEntities">
+          <EntitySetMapping Name="Candidates">
+            <EntityTypeMapping TypeName="CodeRankModel.Candidate">
+              <MappingFragment StoreEntitySet="Candidate">
+                <ScalarProperty Name="CandidateID" ColumnName="CandidateID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="emailID" ColumnName="emailID" />
+                <ScalarProperty Name="password" ColumnName="password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Exams">
+            <EntityTypeMapping TypeName="CodeRankModel.Exam">
+              <MappingFragment StoreEntitySet="Exam">
+                <ScalarProperty Name="ExamID" ColumnName="ExamID" />
+                <ScalarProperty Name="CandidateID" ColumnName="CandidateID" />
+                <ScalarProperty Name="PaperSetID" ColumnName="PaperSetID" />
+                <ScalarProperty Name="ExamDate" ColumnName="ExamDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ExamResults">
+            <EntityTypeMapping TypeName="CodeRankModel.ExamResult">
+              <MappingFragment StoreEntitySet="ExamResult">
+                <ScalarProperty Name="ExamID" ColumnName="ExamID" />
+                <ScalarProperty Name="PaperSetQuestionID" ColumnName="PaperSetQuestionID" />
+                <ScalarProperty Name="Score" ColumnName="Score" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PaperSets">
+            <EntityTypeMapping TypeName="CodeRankModel.PaperSet">
+              <MappingFragment StoreEntitySet="PaperSet">
+                <ScalarProperty Name="PaperSetID" ColumnName="PaperSetID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PaperSetQuestions">
+            <EntityTypeMapping TypeName="CodeRankModel.PaperSetQuestion">
+              <MappingFragment StoreEntitySet="PaperSetQuestion">
+                <ScalarProperty Name="PaperSetQuestionID" ColumnName="PaperSetQuestionID" />
+                <ScalarProperty Name="PaperSetID" ColumnName="PaperSetID" />
+                <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+                <ScalarProperty Name="MaximumMarks" ColumnName="MaximumMarks" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Questions">
+            <EntityTypeMapping TypeName="CodeRankModel.Question">
+              <MappingFragment StoreEntitySet="Questions">
+                <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ComplexityLevel" ColumnName="ComplexityLevel" />
+                <ScalarProperty Name="TestAssemblyName" ColumnName="TestAssemblyName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetPaperSetQuestions" FunctionName="CodeRankModel.Store.GetPaperSetQuestions">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CodeRankModel.GetPaperSetQuestions_Result">
+                <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ComplexityLevel" ColumnName="ComplexityLevel" />
+                <ScalarProperty Name="TestAssemblyName" ColumnName="TestAssemblyName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetCandidate" FunctionName="CodeRankModel.Store.GetCandidate">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CodeRankModel.GetCandidate_Result">
+                <ScalarProperty Name="CandidateID" ColumnName="CandidateID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="emailID" ColumnName="emailID" />
+                <ScalarProperty Name="password" ColumnName="password" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetCandidateExamResult" FunctionName="CodeRankModel.Store.GetCandidateExamResult">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CodeRankModel.GetCandidateExamResult_Result">
+                <ScalarProperty Name="PaperSetID" ColumnName="PaperSetID" />
+                <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ComplexityLevel" ColumnName="ComplexityLevel" />
+                <ScalarProperty Name="TestAssemblyName" ColumnName="TestAssemblyName" />
+                <ScalarProperty Name="MaximumMarks" ColumnName="MaximumMarks" />
+                <ScalarProperty Name="Score" ColumnName="Score" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetCandidateExams" FunctionName="CodeRankModel.Store.GetCandidateExams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CodeRankModel.GetCandidateExams_Result">
+                <ScalarProperty Name="ExamID" ColumnName="ExamID" />
+                <ScalarProperty Name="CandidateID" ColumnName="CandidateID" />
+                <ScalarProperty Name="PaperSetID" ColumnName="PaperSetID" />
+                <ScalarProperty Name="ExamDate" ColumnName="ExamDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams />
+  </Designer>
+</edmx:Edmx>

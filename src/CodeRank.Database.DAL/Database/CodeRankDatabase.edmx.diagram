@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="5b5e58687f724131a0d7d9d0c856795a" Name="Diagram1">
+        <EntityTypeShape EntityType="CodeRankModel.Candidate" Width="1.5" PointX="0.75" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CodeRankModel.Exam" Width="1.5" PointX="3" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CodeRankModel.ExamResult" Width="1.5" PointX="5.25" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CodeRankModel.PaperSet" Width="1.5" PointX="0.75" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="CodeRankModel.PaperSetQuestion" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CodeRankModel.Question" Width="1.5" PointX="0.75" PointY="6.5" IsExpanded="true" />
+        <AssociationConnector Association="CodeRankModel.FK_Exam_Candidate" ManuallyRouted="false" />
+        <AssociationConnector Association="CodeRankModel.FK_Exam_PaperSet" ManuallyRouted="false" />
+        <AssociationConnector Association="CodeRankModel.FK_ExamResult_Exam" ManuallyRouted="false" />
+        <AssociationConnector Association="CodeRankModel.FK_ExamResult_PaperSetQuestion" ManuallyRouted="false" />
+        <AssociationConnector Association="CodeRankModel.FK_PaperSetQuestion_PaperSet" ManuallyRouted="false" />
+        <AssociationConnector Association="CodeRankModel.FK_PaperSetQuestion_Questions" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

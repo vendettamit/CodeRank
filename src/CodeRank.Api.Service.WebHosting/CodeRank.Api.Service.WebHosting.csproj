@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{3F0BD21D-AFEE-4700-8E18-E47C8A3FE3F5}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CodeRank.Api.Service.WebHosting</RootNamespace>
+    <AssemblyName>CodeRank.Api.Service.WebHosting</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <WcfConfigValidationEnabled>True</WcfConfigValidationEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="CompilerService.svc" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CodeRank.Api.Entities\CodeRank.Api.Entities.csproj">
+      <Project>{75a0416b-63b8-4cc2-9ba3-3f02bba7ea18}</Project>
+      <Name>CodeRank.Api.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CodeRank.Api.Service.Contracts\CodeRank.Api.Service.Contracts.csproj">
+      <Project>{526375a3-c9e6-4279-9cd7-54bed6e839c8}</Project>
+      <Name>CodeRank.Api.Service.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CodeRank.Api.Service\CodeRank.Api.Service.csproj">
+      <Project>{0cb8b37e-4129-4697-97c3-4e73cba562a0}</Project>
+      <Name>CodeRank.Api.Service</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CodeRank.Bootstrapper\CodeRank.CompilerEngine.csproj">
+      <Project>{bd464c7f-9d6a-4def-81d9-443cfb5a5d14}</Project>
+      <Name>CodeRank.CompilerEngine</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CodeRank.Compiler.Base\CodeRank.Compiler.Base.csproj">
+      <Project>{223f8eeb-664a-46de-b355-eb69bbd88c67}</Project>
+      <Name>CodeRank.Compiler.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CodeRank.CSharpProblems.Ruleset\CodeRank.CSharpProblems.Ruleset.csproj">
+      <Project>{bfea4199-e13d-43aa-bd39-1798972234e4}</Project>
+      <Name>CodeRank.CSharpProblems.Ruleset</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CodeRank.Framework\CodeRank.Framework.csproj">
+      <Project>{1f3cf759-36ff-43b4-88f1-ddaf7f0fcf9a}</Project>
+      <Name>CodeRank.Framework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CodeRank.Nunit.TestRunner\CodeRank.Nunit.TestRunner.csproj">
+      <Project>{57133a86-30b3-4a98-a283-4bdfc8132e12}</Project>
+      <Name>CodeRank.Nunit.TestRunner</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CodeRank\CodeRank.Compiler.Csharp.csproj">
+      <Project>{92d34d89-8a12-4fdb-8153-286346d1d8eb}</Project>
+      <Name>CodeRank.Compiler.Csharp</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>11668</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:11650/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

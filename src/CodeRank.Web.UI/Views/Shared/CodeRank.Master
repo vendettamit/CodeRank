@@ -1,0 +1,27 @@
+﻿<%@ Master Language="C#" Inherits="System.Web.Mvc.ViewMasterPage" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <meta name="viewport" content="width=device-width" />
+    <title><asp:ContentPlaceHolder ID="TitleContent" runat="server" /></title>
+    <link href="../../Content/CodeRank.css" rel="stylesheet" />
+    <script src="../../Scripts/jquery-1.8.2.min.js"></script>
+    <script src="../../Scripts/jquery-ui-1.8.24.min.js"></script>
+</head>
+<body>
+    <div>
+        <div class="header">
+            <span style="margin-top:20px;">CODE RANK</span>
+        </div>
+        
+        <asp:ContentPlaceHolder ID="MainContent" runat="server">
+        
+        </asp:ContentPlaceHolder>
+         <div class="footer">
+           Copyright
+        </div>
+    </div>
+</body>
+</html>

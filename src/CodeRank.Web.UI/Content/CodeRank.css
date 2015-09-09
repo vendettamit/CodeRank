@@ -1,0 +1,40 @@
+﻿body
+{
+    background-color: #f8f9fa;
+}
+
+.header
+{
+    font-weight: bold;
+    font-size: 28px;
+    height: 80px;
+    text-align: center;
+    background-color: #edf1f4;
+}
+
+.footer
+{
+    margin-top: 30px;
+    background-color: black;
+    color: white;
+    height: 20px;
+    text-align: center;
+}
+
+button
+{
+    background-color: #fdfdfd;
+}
+
+.mainContent
+{
+    margin-left: 8%;
+    margin-right: 8%;
+}
+
+.questionSet
+{
+    margin-left: 2%;
+    margin-right: 20%;
+    margin-top:5px;
+}
